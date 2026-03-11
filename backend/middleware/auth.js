@@ -11,8 +11,8 @@ exports.protect = async (req, res, next) => {
   }
 
   if (!token) {
-    return res.status(401).json({ 
-      message: 'Not authorized to access this route' 
+    return res.status(401).json({
+      message: 'Not authorized to access this route'
     });
   }
 
@@ -24,15 +24,15 @@ exports.protect = async (req, res, next) => {
     req.admin = await Admin.findById(decoded.id);
 
     if (!req.admin) {
-      return res.status(401).json({ 
-        message: 'Admin not found' 
+      return res.status(401).json({
+        message: 'Admin not found'
       });
     }
 
     next();
   } catch (error) {
-    return res.status(401).json({ 
-      message: 'Not authorized to access this route' 
+    return res.status(401).json({
+      message: 'Not authorized to access this route'
     });
   }
 };
@@ -41,8 +41,8 @@ exports.protect = async (req, res, next) => {
 exports.authorize = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.admin.role)) {
-      return res.status(403).json({ 
-        message: `Role ${req.admin.role} is not authorized to access this route` 
+      return res.status(403).json({
+        message: `Role ${req.admin.role} is not authorized to access this route`
       });
     }
     next();
