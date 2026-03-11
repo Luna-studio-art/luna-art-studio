@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Filter, Search } from 'lucide-react';
@@ -17,7 +17,7 @@ const categories = [
   'Video Projects',
 ];
 
-export default function GalleryPage() {
+function GalleryContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [projects, setProjects] = useState<Project[]>([]);
@@ -175,5 +175,21 @@ export default function GalleryPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function GalleryPage() {
+  return (
+    <Suspense fallback={
+      <div className="pt-24 pb-20 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex justify-center items-center h-96">
+            <div className="spinner" />
+          </div>
+        </div>
+      </div>
+    }>
+      <GalleryContent />
+    </Suspense>
   );
 }
