@@ -14,11 +14,12 @@ app.use(cors({
     process.env.FRONTEND_URL,
     'http://localhost:3000',
     'https://luna-art-studio.vercel.app',
+    'https://luna-art-studio-6xq5a672n-luna-studio-arts-projects.vercel.app',
     '*'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
